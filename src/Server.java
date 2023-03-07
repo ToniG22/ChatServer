@@ -47,6 +47,7 @@ public class Server implements Runnable{
     public void shutdown() {
         try {
             done = true;
+            pool.shutdown();
             if (!server.isClosed()) {
                 server.close();
             }
@@ -62,7 +63,7 @@ public class Server implements Runnable{
 
     class ConnectionHandler implements Runnable {
 
-        private Socket client;
+        private final Socket client;
         private BufferedReader in;
         private PrintWriter out;
         private String name;
